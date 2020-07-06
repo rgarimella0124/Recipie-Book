@@ -1,0 +1,130 @@
+  
+{>"layout" /}
+
+{<body}
+    <!-- Button to add recipe and open modal -->
+    <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#formModal">
+    Add recipe
+  </button>
+  <br />
+    {#recipes}
+        <div class="card card-block bg-faded p-3 align-middle">
+            <h5 class="align-middle">
+                {name}
+                <button class="btn btn-info float-right" type="button" data-toggle="collapse" data-target="#recipe_{id}" aria-expanded="false" aria-controls="recipe_{id}"><i class="fas fa-caret-down"></i></button>
+            </h5>
+
+            <div class="collapse" id="recipe_{id}">
+                    <br/>
+                    <br/>
+                    <p><strong>Ingredients: </strong>
+                        <br/><pre>{ingredients}</pre>
+                    </p>
+                    <p><strong>Instructions: </strong>
+                        <br/><pre>{directions}</pre>
+                    </p>
+                    <br/>
+                    <hr/>
+                    <button class="btn btn-secondary edit-recipe" 
+                        data-toggle="modal" 
+                        data-target="#editFormModal"
+                        data-id="{id}"
+                        data-name="{name}"
+                        data-ingredients="{ingredients}"
+                        data-directions="{directions}"
+                    >
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger delete-recipe" data-id="{id}"><i class="fas fa-times"></i></button>
+
+            </div>
+        </div>   
+        <br /> 
+    {/recipes}
+
+<!-- Add Form Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <form method="POST" action="/add">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="formModalLabel">Add Recipe</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                            <label for="name">Recipe Name</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter recipe name">
+                    </div>
+                    <div class="form-group">
+                            <label for="name">Ingredients</label>
+                            <pre>
+                                <textarea class="form-control" name="ingredients" id="ingredients" rows="6"></textarea>
+                            </pre>
+                    </div>
+                    <div class="form-group">
+                            <label for="name">Directions</label>
+                            <pre>
+                                <textarea class="form-control" name="directions" id="directions" rows="6"></textarea>
+                            </pre>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Upload image</label>
+                        <input type="file" name="image" accept="image/*">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-info" value="Save"/>
+                </div>
+            </form>
+      </div>
+    </div>
+</div>
+
+<!-- Edit Form Modal -->
+<div class="modal fade" id="editFormModal" tabindex="-1" role="dialog" aria-labelledby="editFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <form method="POST" action="/edit">
+                <input type="hidden" id="edit-form-id" name="id">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="editFormModalLabel">Edit Recipe</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                                <label for="name">Recipe Name oh</label>
+                                <input type="text" class="form-control" name="name" id="edit-form-name">
+                        </div>
+                        <div class="form-group">
+                                <label for="name">Ingredients</label>
+                                <pre>
+                                    <textarea class="form-control" name="ingredients" id="edit-form-ingredients" rows="6"></textarea>
+                                </pre>
+                        </div>
+                        <div class="form-group">
+                                <label for="name">Directions</label>
+                                <pre>
+                                    <textarea class="form-control" name="directions" id="edit-form-directions" rows="6"></textarea>
+                                </pre>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Upload image</label>
+                            <input type="file" name="image" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-info" value="Save"/>
+                    </div>
+                </form>
+          </div>
+        </div>
+</div>
+
+{/body}
